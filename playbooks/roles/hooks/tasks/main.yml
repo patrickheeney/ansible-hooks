@@ -7,7 +7,7 @@
 - include: "{{ hooks_pre_tasks_users | default('empty.yml') }}"
 
 - debug: msg="Firing test 3 (should return empty)"
-- include: "{{ debops_pre_tasks_users_doesnt_exist | default('empty.yml') }}"
+- include: "{{ hooks_pre_tasks_users_doesnt_exist | default('empty.yml') }}"
 
 # - debug: msg="Firing test 4 (fails)"
 # - include: "{{ hooks_pre_tasks_users }}"
