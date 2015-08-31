@@ -1,0 +1,10 @@
+- name: "Test"
+  hosts: local
+  vars:
+    hooks_pre_tasks_users: 'hook.yml'
+    hooks_template_folder: '../templates/'
+    hooks_fire_hooks: False
+  roles:
+    - { role: hooks, tags: [hooks] }
+  tasks:
+    - debug: msg="Done"

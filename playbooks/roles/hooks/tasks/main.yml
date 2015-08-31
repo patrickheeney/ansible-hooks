@@ -1,0 +1,25 @@
+
+- debug: msg="Firing test 1 (should skip)"
+- include: hook.yml
+  when: hooks_fire_hooks is defined and hooks_fire_hooks
+
+- debug: msg="Firing test 2 (should fire)"
+- include: "{{ hooks_pre_tasks_users | default('empty.yml') }}"
+
+- debug: msg="Firing test 3 (should return empty)"
+- include: "{{ debops_pre_tasks_users_doesnt_exist | default('empty.yml') }}"
+
+# - debug: msg="Firing test 4 (fails)"
+# - include: "{{ hooks_pre_tasks_users }}"
+#   when: hooks_pre_tasks_users is defined
+# Error: ERROR: file could not read: !/playbooks/roles/hooks/tasks/{{ hooks_pre_tasks_users }}
+
+- debug: msg="Firing test 5 (should return ../templates/test.j2)"
+- debug: msg="{{ hooks_template_folder | default("etc/ssh/") + item + ".j2" }}"
+  with_items:
+    - "test"
+
+- debug: msg="Firing test 6 (should return ../templates/none/test.j2)"
+- debug: msg="{{ hooks_template_folder_doesnt_exist | default("../templates/none/") + item + ".j2" }}"
+  with_items:
+    - "test"
